@@ -1,0 +1,103 @@
+const btnClear = document.querySelector(".btn-clear");
+const todoList = document.querySelector(".list-items");
+const todoInput = document.querySelector("#inputs");
+
+let todos = [];
+
+export const storage = (todo) => {
+  localStorage.setItem("todos", JSON.stringify(todo));
+};
+
+export const render = (todos) => {
+  let li = "";
+  if (todos) {
+    todos.forEach((todo, id) => {
+      li += `<li class='list-item'>
+        <label class='lists' id=${id}>
+          <input class='checkbox' type='checkbox' id=${id} />
+          <p class='list' contenteditable='true'>${todo.description}</p>
+        </label>
+        <div class='settings'>
+              <ion-icon  name='ellipsis-vertical-outline'></ion-icon>
+            <ul class='task-menu'>
+              <ion-icon name='trash-outline' class='trash'>Delete</ion-icon>
+            </ul>
+         </div>
+         </li>`;
+    });
+    todoList.innerHTML = li;
+  }
+};
+
+// checkbox and mark as completed
+export const checkedComplete = (target) => {
+  if (target.classList.contains("checkbox")) {
+    const id = target.parentElement.id;
+    todos[id].completed = target.checked;
+    // add a class of completed
+    if (target.checked) {
+      target.parentElement.parentElement.classList.add("completed");
+    } else {
+      target.parentElement.parentElement.classList.remove("completed");
+    }
+
+    storage(todos);
+  }
+};
+
+// remove element
+const removeid = (id) => {
+  todos = todos.filter((todo) => todo.index !== id);
+  for (let i = 0; i < todos.length; i++) {
+    todos[i].index = i + 1;
+  }
+  storage(todos);
+  render(todos);
+};
+
+export const removeElement = (target) => {
+  if (target.classList.contains("trash")) {
+    const id = target.parentElement.parentElement.parentElement.id;
+    todos.splice(id, 1);
+
+    removeid(id);
+  }
+};
+
+// clear all checked
+export const clearAll = () => {
+  btnClear.addEventListener("click", () => {
+    todos = todos.filter((todo) => todo.completed === false);
+    storage(todos);
+    render(todos);
+  });
+};
+
+export const inputs = () => {
+  todoInput.addEventListener("keypress", (e) => {
+    let todoInfo = todoInput.value.trim();
+    if (e.key === "Enter" && e.target.value !== "") {
+      e.preventDefault();
+
+      const todo = {
+        description: todoInfo,
+        completed: false,
+        index: todos.length + 1,
+      };
+      todos.push(todo);
+      storage(todos);
+      render(todos);
+      e.target.value = "";
+    }
+  });
+};
+
+// update the storage
+
+if (localStorage.getItem("todos")) {
+  todos = JSON.parse(localStorage.getItem("todos"));
+  render(todos);
+} else {
+  localStorage.setItem("todos", JSON.stringify([]));
+}
+export { todos };
