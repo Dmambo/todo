@@ -3,7 +3,8 @@ const btnClear = document.querySelector('.btn-clear');
 const todoList = document.querySelector('.list-items');
 const todoInput = document.querySelector('#inputs');
 
-let todos = []; /* eslint-disable import/no-mutable-exports */
+/* eslint-disable import/no-mutable-exports */
+let todos = []; 
 export const storage = (todo) => {
   localStorage.setItem('todos', JSON.stringify(todo));
 };
