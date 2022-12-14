@@ -4,7 +4,7 @@ const todoList = document.querySelector('.list-items');
 const todoInput = document.querySelector('#inputs');
 
 /* eslint-disable import/no-mutable-exports */
-let todos = []; 
+let todos = [];
 export const storage = (todo) => {
   localStorage.setItem('todos', JSON.stringify(todo));
 };
