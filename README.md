@@ -69,8 +69,9 @@ it's a book list project that allows you to add book both in the ui and the loca
 
 ## 💻 Getting Started <a name="getting-started"></a>
 
-To use this project.
+To get started in using this project 
 First you need to clone the respository into your local machine.
+and run it in any of your favourite IDES, will recommend vs code
 
 ### Prerequisites
 
@@ -105,6 +106,11 @@ git clone git@github.com:myaccount/my-project.git
 - LinkedIn: [LinkedIn](https://linkedin.com/in/Kelvin Kimwetich)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- Future featurea -->
+## 🔭 Future Features <a name="future-features"></a>
+
+The future features that would be availble would be design in other javascript framework, like react.
 
 <!-- CONTRIBUTING -->
 
