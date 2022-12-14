@@ -1,15 +1,15 @@
-const btnClear = document.querySelector(".btn-clear");
-const todoList = document.querySelector(".list-items");
-const todoInput = document.querySelector("#inputs");
+const btnClear = document.querySelector('.btn-clear');
+const todoList = document.querySelector('.list-items');
+const todoInput = document.querySelector('#inputs');
 
 let todos = [];
 
 export const storage = (todo) => {
-  localStorage.setItem("todos", JSON.stringify(todo));
+  localStorage.setItem('todos', JSON.stringify(todo));
 };
 
 export const render = (todos) => {
-  let li = "";
+  let li = '';
   if (todos) {
     todos.forEach((todo, id) => {
       li += `<li class='list-item'>
@@ -31,14 +31,14 @@ export const render = (todos) => {
 
 // checkbox and mark as completed
 export const checkedComplete = (target) => {
-  if (target.classList.contains("checkbox")) {
+  if (target.classList.contains('checkbox')) {
     const id = target.parentElement.id;
     todos[id].completed = target.checked;
     // add a class of completed
     if (target.checked) {
-      target.parentElement.parentElement.classList.add("completed");
+      target.parentElement.parentElement.classList.add('completed');
     } else {
-      target.parentElement.parentElement.classList.remove("completed");
+      target.parentElement.parentElement.classList.remove('completed');
     }
 
     storage(todos);
@@ -56,7 +56,7 @@ const removeid = (id) => {
 };
 
 export const removeElement = (target) => {
-  if (target.classList.contains("trash")) {
+  if (target.classList.contains('trash')) {
     const id = target.parentElement.parentElement.parentElement.id;
     todos.splice(id, 1);
 
@@ -66,17 +66,35 @@ export const removeElement = (target) => {
 
 // clear all checked
 export const clearAll = () => {
-  btnClear.addEventListener("click", () => {
+  btnClear.addEventListener('click', () => {
     todos = todos.filter((todo) => todo.completed === false);
     storage(todos);
     render(todos);
   });
 };
 
+// edit todo
+export const editTodo = (document) => {
+  document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('list')) {
+      e.target.contentEditable = true;
+      e.target.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          e.target.contentEditable = false;
+          const id = e.target.parentElement.id;
+          todos[id].description = e.target.innerText;
+          storage(todos);
+        }
+      });
+    }
+  });
+};
+
 export const inputs = () => {
-  todoInput.addEventListener("keypress", (e) => {
+  todoInput.addEventListener('keypress', (e) => {
     let todoInfo = todoInput.value.trim();
-    if (e.key === "Enter" && e.target.value !== "") {
+    if (e.key === 'Enter' && e.target.value !== '') {
       e.preventDefault();
 
       const todo = {
@@ -87,17 +105,17 @@ export const inputs = () => {
       todos.push(todo);
       storage(todos);
       render(todos);
-      e.target.value = "";
+      e.target.value = '';
     }
   });
 };
 
 // update the storage
 
-if (localStorage.getItem("todos")) {
-  todos = JSON.parse(localStorage.getItem("todos"));
+if (localStorage.getItem('todos')) {
+  todos = JSON.parse(localStorage.getItem('todos'));
   render(todos);
 } else {
-  localStorage.setItem("todos", JSON.stringify([]));
+  localStorage.setItem('todos', JSON.stringify([]));
 }
 export { todos };

@@ -1,4 +1,4 @@
-import "./style.css";
+import './style.css';
 
 import {
   todos,
@@ -8,15 +8,15 @@ import {
   clearAll,
   editTodo,
   inputs,
-} from "./modules/script.js";
+} from './modules/script.js';
 
 inputs();
 render(todos);
 clearAll();
-// editTodo(document);
+editTodo(document);
 
 // event delegation
-document.addEventListener("click", (e) => {
+document.addEventListener('click', (e) => {
   removeElement(e.target);
   checkedComplete(e.target);
 });
