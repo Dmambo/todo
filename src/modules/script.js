@@ -2,8 +2,8 @@ const btnClear = document.querySelector('.btn-clear');
 const todoList = document.querySelector('.list-items');
 const todoInput = document.querySelector('#inputs');
 
-let todos = [];
-
+const todos = [];
+/* eslint-disable linebreak-style */
 export const storage = (todo) => {
   localStorage.setItem('todos', JSON.stringify(todo));
 };
@@ -30,6 +30,7 @@ export const render = (todos) => {
 };
 
 // checkbox and mark as completed
+/* eslint-disable prefer-destructuring */
 export const checkedComplete = (target) => {
   if (target.classList.contains('checkbox')) {
     const id = target.parentElement.id;
@@ -48,7 +49,7 @@ export const checkedComplete = (target) => {
 // remove element
 const removeid = (id) => {
   todos = todos.filter((todo) => todo.index !== id);
-  for (let i = 0; i < todos.length; i++) {
+  for (let i = 0; i < todos.length; i+=1) {
     todos[i].index = i + 1;
   }
   storage(todos);
