@@ -1,9 +1,10 @@
+/* eslint-disable linebreak-style */
 const btnClear = document.querySelector('.btn-clear');
 const todoList = document.querySelector('.list-items');
 const todoInput = document.querySelector('#inputs');
 
-const todos = [];
-/* eslint-disable linebreak-style */
+let todos = [];
+
 export const storage = (todo) => {
   localStorage.setItem('todos', JSON.stringify(todo));
 };
@@ -49,7 +50,7 @@ export const checkedComplete = (target) => {
 // remove element
 const removeid = (id) => {
   todos = todos.filter((todo) => todo.index !== id);
-  for (let i = 0; i < todos.length; i+=1) {
+  for (let i = 0; i < todos.length; i+= 1) {
     todos[i].index = i + 1;
   }
   storage(todos);
@@ -94,7 +95,7 @@ export const editTodo = (document) => {
 
 export const inputs = () => {
   todoInput.addEventListener('keypress', (e) => {
-    let todoInfo = todoInput.value.trim();
+    const todoInfo = todoInput.value.trim();
     if (e.key === 'Enter' && e.target.value !== '') {
       e.preventDefault();
 
