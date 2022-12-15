@@ -113,7 +113,7 @@ export const inputs = () => {
   });
 };
 
-// update the storage
+// update the storage to show when user reloads the page
 
 if (localStorage.getItem('todos')) {
   todos = JSON.parse(localStorage.getItem('todos'));
