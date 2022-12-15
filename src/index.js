@@ -1,7 +1,6 @@
 import './style.css';
 
 import {
-  todos,
   render,
   removeElement,
   checkedComplete,
