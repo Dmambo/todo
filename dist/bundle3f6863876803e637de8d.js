@@ -11,21 +11,24 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "checkedComplete": () => (/* binding */ checkedComplete),
+/* harmony export */   "clearAll": () => (/* binding */ clearAll),
+/* harmony export */   "editTodo": () => (/* binding */ editTodo),
 /* harmony export */   "inputs": () => (/* binding */ inputs),
 /* harmony export */   "removeElement": () => (/* binding */ removeElement),
 /* harmony export */   "render": () => (/* binding */ render),
 /* harmony export */   "storage": () => (/* binding */ storage),
 /* harmony export */   "todos": () => (/* binding */ todos)
 /* harmony export */ });
-var btnClear = document.querySelector(".btn-clear");
-var todoList = document.querySelector(".list-items");
-var todoInput = document.querySelector("#inputs");
+function _readOnlyError(name) { throw new TypeError("\"" + name + "\" is read-only"); }
+var btnClear = document.querySelector('.btn-clear');
+var todoList = document.querySelector('.list-items');
+var todoInput = document.querySelector('#inputs');
 var todos = [];
 var storage = function storage(todo) {
-  localStorage.setItem("todos", JSON.stringify(todo));
+  localStorage.setItem('todos', JSON.stringify(todo));
 };
 var render = function render(todos) {
-  var li = "";
+  var li = '';
   if (todos) {
     todos.forEach(function (todo, id) {
       li += "<li class='list-item'>\n        <label class='lists' id=".concat(id, ">\n          <input class='checkbox' type='checkbox' id=").concat(id, " />\n          <p class='list' contenteditable='true'>").concat(todo.description, "</p>\n        </label>\n        <div class='settings'>\n              <ion-icon  name='ellipsis-vertical-outline'></ion-icon>\n            <ul class='task-menu'>\n              <ion-icon name='trash-outline' class='trash'>Delete</ion-icon>\n            </ul>\n         </div>\n         </li>");
@@ -36,14 +39,13 @@ var render = function render(todos) {
 
 // checkbox and mark as completed
 var checkedComplete = function checkedComplete(target) {
-  if (target.classList.contains("checkbox")) {
-    var id = target.parentElement.id;
-    todos[id].completed = target.checked;
+  if (target.classList.contains('checkbox')) {
+    todos[target.parentElement.id].completed = target.checked;
     // add a class of completed
     if (target.checked) {
-      target.parentElement.parentElement.classList.add("completed");
+      target.parentElement.parentElement.classList.add('completed');
     } else {
-      target.parentElement.parentElement.classList.remove("completed");
+      target.parentElement.parentElement.classList.remove('completed');
     }
     storage(todos);
   }
@@ -51,27 +53,55 @@ var checkedComplete = function checkedComplete(target) {
 
 // remove element
 var removeid = function removeid(id) {
-  todos = todos.filter(function (todo) {
+  todos.filter(function (todo) {
     return todo.index !== id;
-  });
-  for (var i = 0; i < todos.length; i++) {
+  }), _readOnlyError("todos");
+  for (var i = 0; i < todos.length; i += 1) {
     todos[i].index = i + 1;
   }
   storage(todos);
   render(todos);
 };
 var removeElement = function removeElement(target) {
-  if (target.classList.contains("trash")) {
-    var id = target.parentElement.parentElement.parentElement.id;
-    id.remove();
-    todos.splice(id, 1);
-    removeid(id);
+  if (target.classList.contains('trash')) {
+    // const id = target.parentElement.parentElement.parentElement.id;
+    todos.splice(target.parentElement.parentElement.parentElement.id, 1);
+    removeid(target.parentElement.parentElement.parentElement.id);
   }
 };
+
+// clear all completed file
+var clearAll = function clearAll() {
+  btnClear.addEventListener('click', function () {
+    // clear all method with filter methods
+    todos.filter(function (todo) {
+      return todo.completed === false;
+    }), _readOnlyError("todos");
+    storage(todos);
+    render(todos);
+  });
+};
+
+// edit todo
+var editTodo = function editTodo(document) {
+  document.addEventListener('click', function (e) {
+    if (e.target.classList.contains('list')) {
+      e.target.contentEditable = true;
+      e.target.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          e.target.contentEditable = false;
+          todos[e.target.parentElement.id].description = e.target.innerText;
+          storage(todos);
+        }
+      });
+    }
+  });
+};
 var inputs = function inputs() {
-  todoInput.addEventListener("keypress", function (e) {
+  todoInput.addEventListener('keypress', function (e) {
     var todoInfo = todoInput.value.trim();
-    if (e.key === "Enter" && e.target.value !== "") {
+    if (e.key === 'Enter' && e.target.value !== '') {
       e.preventDefault();
       var todo = {
         description: todoInfo,
@@ -81,18 +111,18 @@ var inputs = function inputs() {
       todos.push(todo);
       storage(todos);
       render(todos);
-      e.target.value = "";
+      e.target.value = '';
     }
   });
 };
 
-// update the storage
+// update the storage to show when user reloads the page
 
-if (localStorage.getItem("todos")) {
-  todos = JSON.parse(localStorage.getItem("todos"));
+if (localStorage.getItem('todos')) {
+  JSON.parse(localStorage.getItem('todos')), _readOnlyError("todos");
   render(todos);
 } else {
-  localStorage.setItem("todos", JSON.stringify([]));
+  localStorage.setItem('todos', JSON.stringify([]));
 }
 
 
@@ -692,11 +722,11 @@ __webpack_require__.r(__webpack_exports__);
 
 (0,_modules_script_js__WEBPACK_IMPORTED_MODULE_1__.inputs)();
 (0,_modules_script_js__WEBPACK_IMPORTED_MODULE_1__.render)(_modules_script_js__WEBPACK_IMPORTED_MODULE_1__.todos);
-// clearAll();
-// editTodo(document);
+(0,_modules_script_js__WEBPACK_IMPORTED_MODULE_1__.clearAll)();
+(0,_modules_script_js__WEBPACK_IMPORTED_MODULE_1__.editTodo)(document);
 
 // event delegation
-document.addEventListener("click", function (e) {
+document.addEventListener('click', function (e) {
   (0,_modules_script_js__WEBPACK_IMPORTED_MODULE_1__.removeElement)(e.target);
   (0,_modules_script_js__WEBPACK_IMPORTED_MODULE_1__.checkedComplete)(e.target);
 });
@@ -704,4 +734,4 @@ document.addEventListener("click", function (e) {
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle75dd2c0966cd3ec54a9a.js.map
+//# sourceMappingURL=bundle3f6863876803e637de8d.js.map
