@@ -1,7 +1,7 @@
 const btnClear = document.querySelector('.btn-clear');
 const todoList = document.querySelector('.list-items');
 const todoInput = document.querySelector('#inputs');
-let todos = [];
+export const todos = [];
 
 export const storage = (todo) => {
   localStorage.setItem('todos', JSON.stringify(todo));
@@ -55,9 +55,9 @@ const removeid = (id) => {
 
 export const removeElement = (target) => {
   if (target.classList.contains('trash')) {
-    const id = target.parentElement.parentElement.parentElement.id;
-    todos.splice(id, 1);
-    removeid(id);
+    // const id = target.parentElement.parentElement.parentElement.id;
+    todos.splice(target.parentElement.parentElement.parentElement.id, 1);
+    removeid(target.parentElement.parentElement.parentElement.id);
   }
 };
 
@@ -115,5 +115,3 @@ if (localStorage.getItem('todos')) {
 } else {
   localStorage.setItem('todos', JSON.stringify([]));
 }
-
-export { todos };
