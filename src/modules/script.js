@@ -1,7 +1,7 @@
 const btnClear = document.querySelector('.btn-clear');
 const todoList = document.querySelector('.list-items');
 const todoInput = document.querySelector('#inputs');
-const todos = [];
+let todos = [];
 
 export const storage = (todo) => {
   localStorage.setItem('todos', JSON.stringify(todo));
@@ -31,7 +31,6 @@ export const render = (todos) => {
 // checkbox and mark as completed
 export const checkedComplete = (target) => {
   if (target.classList.contains('checkbox')) {
-   
     todos[target.parentElement.id].completed = target.checked;
     // add a class of completed
     if (target.checked) {
@@ -81,7 +80,6 @@ export const editTodo = (document) => {
         if (e.key === 'Enter') {
           e.preventDefault();
           e.target.contentEditable = false;
-         
           todos[e.target.parentElement.id].description = e.target.innerText;
           storage(todos);
         }
@@ -118,4 +116,4 @@ if (localStorage.getItem('todos')) {
   localStorage.setItem('todos', JSON.stringify([]));
 }
 
-export {todos}
+export { todos };
