@@ -1,7 +1,7 @@
 const btnClear = document.querySelector('.btn-clear');
 const todoList = document.querySelector('.list-items');
 const todoInput = document.querySelector('#inputs');
-export const todos = [];
+export let todos = [];
 
 export const storage = (todo) => {
   localStorage.setItem('todos', JSON.stringify(todo));
