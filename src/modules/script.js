@@ -1,7 +1,8 @@
 const btnClear = document.querySelector('.btn-clear');
 const todoList = document.querySelector('.list-items');
 const todoInput = document.querySelector('#inputs');
-const todos = [];
+/* eslint-disable import/no-mutable-exports */
+let todos = [];
 
 export const storage = (todo) => {
   localStorage.setItem('todos', JSON.stringify(todo));
@@ -115,4 +116,4 @@ if (localStorage.getItem('todos')) {
 } else {
   localStorage.setItem('todos', JSON.stringify([]));
 }
-export default { todos };
+export { todos };
