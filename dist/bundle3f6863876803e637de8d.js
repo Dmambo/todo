@@ -19,12 +19,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "storage": () => (/* binding */ storage),
 /* harmony export */   "todos": () => (/* binding */ todos)
 /* harmony export */ });
-/* eslint-disable linebreak-style */
+function _readOnlyError(name) { throw new TypeError("\"" + name + "\" is read-only"); }
 var btnClear = document.querySelector('.btn-clear');
 var todoList = document.querySelector('.list-items');
 var todoInput = document.querySelector('#inputs');
-
-/* eslint-disable import/no-mutable-exports */
 var todos = [];
 var storage = function storage(todo) {
   localStorage.setItem('todos', JSON.stringify(todo));
@@ -40,11 +38,9 @@ var render = function render(todos) {
 };
 
 // checkbox and mark as completed
-/* eslint-disable prefer-destructuring */
 var checkedComplete = function checkedComplete(target) {
   if (target.classList.contains('checkbox')) {
-    var id = target.parentElement.id;
-    todos[id].completed = target.checked;
+    todos[target.parentElement.id].completed = target.checked;
     // add a class of completed
     if (target.checked) {
       target.parentElement.parentElement.classList.add('completed');
@@ -57,9 +53,9 @@ var checkedComplete = function checkedComplete(target) {
 
 // remove element
 var removeid = function removeid(id) {
-  todos = todos.filter(function (todo) {
+  todos.filter(function (todo) {
     return todo.index !== id;
-  });
+  }), _readOnlyError("todos");
   for (var i = 0; i < todos.length; i += 1) {
     todos[i].index = i + 1;
   }
@@ -68,18 +64,19 @@ var removeid = function removeid(id) {
 };
 var removeElement = function removeElement(target) {
   if (target.classList.contains('trash')) {
-    var id = target.parentElement.parentElement.parentElement.id;
-    todos.splice(id, 1);
-    removeid(id);
+    // const id = target.parentElement.parentElement.parentElement.id;
+    todos.splice(target.parentElement.parentElement.parentElement.id, 1);
+    removeid(target.parentElement.parentElement.parentElement.id);
   }
 };
 
-// clear all checked
+// clear all completed file
 var clearAll = function clearAll() {
   btnClear.addEventListener('click', function () {
-    todos = todos.filter(function (todo) {
+    // clear all method with filter methods
+    todos.filter(function (todo) {
       return todo.completed === false;
-    });
+    }), _readOnlyError("todos");
     storage(todos);
     render(todos);
   });
@@ -94,8 +91,7 @@ var editTodo = function editTodo(document) {
         if (e.key === 'Enter') {
           e.preventDefault();
           e.target.contentEditable = false;
-          var id = e.target.parentElement.id;
-          todos[id].description = e.target.innerText;
+          todos[e.target.parentElement.id].description = e.target.innerText;
           storage(todos);
         }
       });
@@ -120,10 +116,10 @@ var inputs = function inputs() {
   });
 };
 
-// update the storage
+// update the storage to show when user reloads the page
 
 if (localStorage.getItem('todos')) {
-  todos = JSON.parse(localStorage.getItem('todos'));
+  JSON.parse(localStorage.getItem('todos')), _readOnlyError("todos");
   render(todos);
 } else {
   localStorage.setItem('todos', JSON.stringify([]));
@@ -722,7 +718,6 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ "./src/style.css");
 /* harmony import */ var _modules_script_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/script.js */ "./src/modules/script.js");
-/* eslint-disable linebreak-style */
 
 
 (0,_modules_script_js__WEBPACK_IMPORTED_MODULE_1__.inputs)();
@@ -739,4 +734,4 @@ document.addEventListener('click', function (e) {
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle353755b5bf5d52d5e3a8.js.map
+//# sourceMappingURL=bundle3f6863876803e637de8d.js.map
