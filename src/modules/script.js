@@ -1,9 +1,7 @@
-/* eslint-disable linebreak-style */
 const btnClear = document.querySelector('.btn-clear');
 const todoList = document.querySelector('.list-items');
 const todoInput = document.querySelector('#inputs');
 
-/* eslint-disable import/no-mutable-exports */
 let todos = [];
 export const storage = (todo) => {
   localStorage.setItem('todos', JSON.stringify(todo));
@@ -31,7 +29,6 @@ export const render = (todos) => {
 };
 
 // checkbox and mark as completed
-/* eslint-disable prefer-destructuring */
 export const checkedComplete = (target) => {
   if (target.classList.contains('checkbox')) {
     const id = target.parentElement.id;
