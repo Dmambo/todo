@@ -115,4 +115,4 @@ if (localStorage.getItem('todos')) {
 } else {
   localStorage.setItem('todos', JSON.stringify([]));
 }
-export { todos };
+export default { todos };
