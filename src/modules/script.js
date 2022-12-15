@@ -66,7 +66,7 @@ export const removeElement = (target) => {
   }
 };
 
-// clear all checked
+// clear all completed
 export const clearAll = () => {
   btnClear.addEventListener('click', () => {
     // clear all method with filter methods
