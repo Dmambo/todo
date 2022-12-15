@@ -69,6 +69,7 @@ export const removeElement = (target) => {
 // clear all checked
 export const clearAll = () => {
   btnClear.addEventListener('click', () => {
+    // clear all method with filter methods
     todos = todos.filter((todo) => todo.completed === false);
     storage(todos);
     render(todos);
