@@ -63,7 +63,7 @@ export const removeElement = (target) => {
   }
 };
 
-// clear all completed
+// clear all completed file
 export const clearAll = () => {
   btnClear.addEventListener('click', () => {
     // clear all method with filter methods
