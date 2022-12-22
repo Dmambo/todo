@@ -1,5 +1,4 @@
 import "./style.css";
-
 import { TodoList } from "./modules/addandremove.js";
 
 inputs();
