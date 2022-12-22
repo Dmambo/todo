@@ -1,4 +1,4 @@
-export default class TodoList {
+class TodoList {
   constructor(ui) {
     this.ui = ui;
     this.todos = [];
@@ -78,6 +78,7 @@ export default class TodoList {
   }
 
   // clear all completed file
+  /* eslint-disable */
   clearAll() {
     if (this.btnClear) {
       this.btnClear.addEventListener("click", () => {
@@ -141,3 +142,4 @@ export default class TodoList {
     }
   }
 }
+export default { TodoList };
