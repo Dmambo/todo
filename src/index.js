@@ -1,14 +1,6 @@
 import "./style.css";
 
-import {
-  todos,
-  render,
-  removeElement,
-  checkedComplete,
-  clearAll,
-  editTodo,
-  inputs,
-} from "./modules/script.js";
+import { TodoList } from "./modules/addandremove.js";
 
 inputs();
 render(todos);
