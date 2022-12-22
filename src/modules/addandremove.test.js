@@ -1,6 +1,6 @@
-import TodoList from "./addandremove";
+import TodoList from './addandremove';
 
-describe("TodoList", () => {
+describe('TodoList', () => {
   const ui = {
     render: jest.fn(),
     storage: jest.fn(),
@@ -10,17 +10,17 @@ describe("TodoList", () => {
   };
   const todoList = new TodoList(ui);
   const todo = {
-    description: "test",
+    description: 'test',
     completed: false,
   };
   const index = 0;
 
-  it("should add a todo", () => {
+  it('should add a todo', () => {
     todoList.add(todo.description);
     expect(todoList.todos).toEqual([todo]);
   });
 
-  it("should remove a todo", () => {
+  it('should remove a todo', () => {
     todoList.remove(index);
     expect(todoList.todos).toEqual([]);
   });
