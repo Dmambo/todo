@@ -1,22 +1,19 @@
 import './style.css';
+import TodoList from './modules/addandremove.js';
 
-import {
-  todos,
-  render,
-  removeElement,
-  checkedComplete,
-  clearAll,
-  editTodo,
-  inputs,
-} from './modules/script.js';
+// import {
+//   TodoList,
+// } from './modules/addandremove.js';
 
-inputs();
-render(todos);
-clearAll();
-editTodo(document);
+const todoList = new TodoList(); todoList.init();
 
-// event delegation
-document.addEventListener('click', (e) => {
-  removeElement(e.target);
-  checkedComplete(e.target);
-});
+// inputs();
+// render(todos);
+// clearAll();
+// editTodo(document);
+
+// // event delegation
+// document.addEventListener('click', (e) => {
+//   removeElement(e.target);
+//   checkedComplete(e.target);
+// });
