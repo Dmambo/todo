@@ -2,9 +2,9 @@ export default class TodoList {
   constructor(ui) {
     this.ui = ui;
     this.todos = [];
-    this.todoInput = document.querySelector('.input');
-    this.btnClear = document.querySelector('.btn-clear');
-    this.ulElement = document.getElementById('list-item');
+    this.todoInput = document.querySelector(".input");
+    this.btnClear = document.querySelector(".btn-clear");
+    this.ulElement = document.getElementById("list-item");
   }
 
   add(description) {
@@ -49,11 +49,11 @@ export default class TodoList {
 
   // event delegation
   eventDelegation() {
-    this.ulElement.addEventListener('click', (e) => {
-      if (e.target.classList.contains('trash')) {
+    this.ulElement.addEventListener("click", (e) => {
+      if (e.target.classList.contains("trash")) {
         this.remove(e.target.parentElement.parentElement.parentElement.id);
       }
-      if (e.target.classList.contains('checkbox')) {
+      if (e.target.classList.contains("checkbox")) {
         this.checkedComplete(
           e.target.parentElement.parentElement.parentElement.id
         );
@@ -63,11 +63,11 @@ export default class TodoList {
 
   // edit todo
   editTodo() {
-    this.ulElement.addEventListener('click', (e) => {
-      if (e.target.classList.contains('list')) {
+    this.ulElement.addEventListener("click", (e) => {
+      if (e.target.classList.contains("list")) {
         e.target.contentEditable = true;
-        e.target.addEventListener('keypress', (e) => {
-          if (e.key === 'Enter') {
+        e.target.addEventListener("keypress", (e) => {
+          if (e.key === "Enter") {
             e.preventDefault();
             e.target.contentEditable = false;
             this.edit(e.target.parentElement.id, e.target.innerText);
@@ -79,42 +79,44 @@ export default class TodoList {
 
   // clear all completed file
   clearAll() {
-    this.btnClear.addEventListener('click', () => {
-      this.clearAll();
-    });
+    if (this.btnClear) {
+      this.btnClear.addEventListener("click", () => {
+        this.clearAll();
+      });
+    }
   }
 
   // add todo
   inputs() {
-    this.todoInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
+    this.todoInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
         e.preventDefault();
         this.add(e.target.value);
-        e.target.value = '';
+        e.target.value = "";
       }
     });
   }
 
   // storage
   storage() {
-    localStorage.setItem('todos', JSON.stringify(this.todos));
+    localStorage.setItem("todos", JSON.stringify(this.todos));
   }
 
   // render
   render() {
-    this.ulElement.innerHTML = '';
+    this.ulElement.innerHTML = "";
     this.todos.forEach((todo, index) => {
-      const li = document.createElement('li');
+      const li = document.createElement("li");
       li.id = index;
       li.innerHTML = `
-            <div class='list-item'>
-            <input type='checkbox' class='checkbox' ${
-              todo.completed ? 'checked' : ''
+            <div class="list-item">
+            <input type="checkbox" class="checkbox" ${
+              todo.completed ? "checked" : ""
             }>
-            <p class='list ${todo.completed ? 'completed' : ''}'>${
+            <p class="list ${todo.completed ? "completed" : ""}">${
         todo.description
       }</p>
-            <i class='fas fa-trash-alt trash'></i>
+            <i class="fas fa-trash-alt trash"></i>
             </div>
             `;
       this.ulElement.appendChild(li);
@@ -123,17 +125,19 @@ export default class TodoList {
 
   // remove element
   removeElement(target) {
-    if (target.classList.contains('trash')) {
+    if (target.classList.contains("trash")) {
       target.parentElement.parentElement.parentElement.remove();
     }
   }
 
-  // checked complete
+  // checked complete with using the contain
   checkedComplete(target) {
-    if (target.classList.contains('checkbox')) {
-      target.parentElement.parentElement.parentElement.classList.toggle(
-        'completed'
-      );
+    if (target) {
+      if (target.classList.contains("checkbox")) {
+        target.parentElement.parentElement.parentElement.classList.toggle(
+          "completed"
+        );
+      }
     }
   }
 }
