@@ -55,7 +55,7 @@ export default class TodoList {
       }
       if (e.target.classList.contains('checkbox')) {
         this.checkedComplete(
-          e.target.parentElement.parentElement.parentElement.id
+          e.target.parentElement.parentElement.parentElement.id,
         );
       }
     });
@@ -109,11 +109,11 @@ export default class TodoList {
       li.innerHTML = `
             <div class='list-item'>
             <input type='checkbox' class='checkbox' ${
-              todo.completed ? 'checked' : ''
-            }>
+  todo.completed ? 'checked' : ''
+}>
             <p class='list ${todo.completed ? 'completed' : ''}'>${
-        todo.description
-      }</p>
+  todo.description
+}</p>
             <i class='fas fa-trash-alt trash'></i>
             </div>
             `;
@@ -132,7 +132,7 @@ export default class TodoList {
   checkedComplete(target) {
     if (target.classList.contains('checkbox')) {
       target.parentElement.parentElement.parentElement.classList.toggle(
-        'completed'
+        'completed',
       );
     }
   }

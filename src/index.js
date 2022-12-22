@@ -8,7 +8,7 @@ import {
   clearAll,
   editTodo,
   inputs,
-} from './modules/script.js';
+} from './modules/script.j';
 
 inputs();
 render(todos);

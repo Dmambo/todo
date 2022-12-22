@@ -1,4 +1,4 @@
-import TodoList from './addandremove';
+import TodoList from './addandremove.js';
 
 describe('TodoList', () => {
   const ui = {
