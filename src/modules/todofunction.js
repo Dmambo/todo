@@ -1,4 +1,4 @@
-class TodoList {
+export default class TodoList {
   constructor(ui) {
     this.ui = ui;
     this.todos = [];
@@ -55,7 +55,8 @@ class TodoList {
       }
       if (e.target.classList.contains('checkbox')) {
         this.checkedComplete(
-          e.target.parentElement.parentElement.parentElement.id,
+          // eslint-disable-next-line comma-dangle
+          e.target.parentElement.parentElement.parentElement.id
         );
       }
     });
@@ -80,9 +81,11 @@ class TodoList {
   // clear all completed file
   /* eslint-disable */
   clearAll() {
-    this.btnClear.addEventListener('click', () => {
-      this.clearAll();
-    });
+    if (this.btnClear) {
+      this.btnClear.addEventListener('click', () => {
+        this.clearAll();
+      });
+    }
   }
 
   // add todo
@@ -110,11 +113,11 @@ class TodoList {
       li.innerHTML = `
             <div class='list-item'>
             <input type='checkbox' class='checkbox' ${
-  todo.completed ? 'checked' : ''
-}>
+              todo.completed ? 'checked' : ''
+            }>
             <p class='list ${todo.completed ? 'completed' : ''}'>${
-  todo.description
-}</p>
+        todo.description
+      }</p>
             <i class='fas fa-trash-alt trash'></i>
             </div>
             `;
@@ -131,11 +134,12 @@ class TodoList {
 
   // checked complete
   checkedComplete(target) {
-    if (target.classList.contains('checkbox')) {
-      target.parentElement.parentElement.parentElement.classList.toggle(
-        'completed',
-      );
+    if (target) {
+      if (target.classList.contains('checkbox')) {
+        target.parentElement.parentElement.parentElement.classList.toggle(
+          'completed'
+        );
+      }
     }
   }
 }
-export default { TodoList };
