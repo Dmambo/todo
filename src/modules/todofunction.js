@@ -1,10 +1,10 @@
-class TodoList {
+export default class TodoList {
   constructor(ui) {
     this.ui = ui;
     this.todos = [];
-    this.todoInput = document.querySelector(".input");
-    this.btnClear = document.querySelector(".btn-clear");
-    this.ulElement = document.getElementById("list-item");
+    this.todoInput = document.querySelector('.input');
+    this.btnClear = document.querySelector('.btn-clear');
+    this.ulElement = document.getElementById('list-item');
   }
 
   add(description) {
@@ -49,12 +49,13 @@ class TodoList {
 
   // event delegation
   eventDelegation() {
-    this.ulElement.addEventListener("click", (e) => {
-      if (e.target.classList.contains("trash")) {
+    this.ulElement.addEventListener('click', (e) => {
+      if (e.target.classList.contains('trash')) {
         this.remove(e.target.parentElement.parentElement.parentElement.id);
       }
-      if (e.target.classList.contains("checkbox")) {
+      if (e.target.classList.contains('checkbox')) {
         this.checkedComplete(
+          // eslint-disable-next-line comma-dangle
           e.target.parentElement.parentElement.parentElement.id
         );
       }
@@ -63,11 +64,11 @@ class TodoList {
 
   // edit todo
   editTodo() {
-    this.ulElement.addEventListener("click", (e) => {
-      if (e.target.classList.contains("list")) {
+    this.ulElement.addEventListener('click', (e) => {
+      if (e.target.classList.contains('list')) {
         e.target.contentEditable = true;
-        e.target.addEventListener("keypress", (e) => {
-          if (e.key === "Enter") {
+        e.target.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
             e.preventDefault();
             e.target.contentEditable = false;
             this.edit(e.target.parentElement.id, e.target.innerText);
@@ -81,7 +82,7 @@ class TodoList {
   /* eslint-disable */
   clearAll() {
     if (this.btnClear) {
-      this.btnClear.addEventListener("click", () => {
+      this.btnClear.addEventListener('click', () => {
         this.clearAll();
       });
     }
@@ -89,35 +90,35 @@ class TodoList {
 
   // add todo
   inputs() {
-    this.todoInput.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
+    this.todoInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
         e.preventDefault();
         this.add(e.target.value);
-        e.target.value = "";
+        e.target.value = '';
       }
     });
   }
 
   // storage
   storage() {
-    localStorage.setItem("todos", JSON.stringify(this.todos));
+    localStorage.setItem('todos', JSON.stringify(this.todos));
   }
 
   // render
   render() {
-    this.ulElement.innerHTML = "";
+    this.ulElement.innerHTML = '';
     this.todos.forEach((todo, index) => {
-      const li = document.createElement("li");
+      const li = document.createElement('li');
       li.id = index;
       li.innerHTML = `
-            <div class="list-item">
-            <input type="checkbox" class="checkbox" ${
-              todo.completed ? "checked" : ""
+            <div class='list-item'>
+            <input type='checkbox' class='checkbox' ${
+              todo.completed ? 'checked' : ''
             }>
-            <p class="list ${todo.completed ? "completed" : ""}">${
+            <p class='list ${todo.completed ? 'completed' : ''}'>${
         todo.description
       }</p>
-            <i class="fas fa-trash-alt trash"></i>
+            <i class='fas fa-trash-alt trash'></i>
             </div>
             `;
       this.ulElement.appendChild(li);
@@ -126,20 +127,19 @@ class TodoList {
 
   // remove element
   removeElement(target) {
-    if (target.classList.contains("trash")) {
+    if (target.classList.contains('trash')) {
       target.parentElement.parentElement.parentElement.remove();
     }
   }
 
-  // checked complete with using the contain
+  // checked complete
   checkedComplete(target) {
     if (target) {
-      if (target.classList.contains("checkbox")) {
+      if (target.classList.contains('checkbox')) {
         target.parentElement.parentElement.parentElement.classList.toggle(
-          "completed"
+          'completed'
         );
       }
     }
   }
 }
-export default { TodoList };
